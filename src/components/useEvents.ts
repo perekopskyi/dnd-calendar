@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { addHours } from 'date-fns'
-import { CalendarEvent } from '../types'
+import { CalendarEvent, Holiday } from '../types'
+import { fetchPublicHolidays } from '../api/getHollidays'
+import { UA_CODE } from '../utils/constants'
 
 interface CreateCustomEvent {
   allDay: boolean
@@ -27,7 +29,29 @@ const initEvents: CalendarEvent[] = [
 ]
 
 export const useEvents = () => {
-  const [events, setEvents] = useState<CalendarEvent[]>(initEvents)
+  const [events, setEvents] = useState<(Holiday | CalendarEvent)[]>(initEvents)
+
+  useEffect(() => {
+    async function fetchData() {
+      const holidays = await fetchPublicHolidays({
+        year: 2023,
+        countryCode: UA_CODE.countryCode,
+      })
+
+      const holidaysCalendarEvents = holidays
+        .map(holiday => ({
+          id: Math.random(),
+          title: holiday.name,
+          start: new Date(holiday.date),
+          end: new Date(holiday.date),
+          allDay: true,
+          isHoliday: true,
+        }))
+
+      setEvents([...events, ...holidaysCalendarEvents])
+    }
+    fetchData()
+  }, [])
 
   return {
     events,

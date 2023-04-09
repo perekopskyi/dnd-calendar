@@ -6,8 +6,12 @@ export interface CalendarEvent {
   allDay: boolean
 }
 
+export interface Holiday extends CalendarEvent {
+  isHoliday: boolean
+}
+
 export interface NewCalendarEvent {
-  event: CalendarEvent
+  event: CalendarEvent | Holiday
   start?: Date
   end?: Date
   isAllDay?: boolean
