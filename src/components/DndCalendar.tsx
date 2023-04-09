@@ -35,7 +35,7 @@ export default function DnDCalendar() {
         const filtered = prev.filter(ev => ev.id !== event.id)
         return [
           ...filtered,
-          { ...existing, start, end, allDay },
+          { ...existing, start, end, allDay: event.allDay },
         ] as CalendarEvent[]
       })
     },
