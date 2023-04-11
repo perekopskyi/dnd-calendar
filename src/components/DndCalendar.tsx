@@ -16,7 +16,10 @@ const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 export default function DnDCalendar() {
   const { events, setEvents, isLoading } = useEvents()
-  const filteredEvents = useFilter({ items: events, searchKeys: ['title'] })
+  const filteredEvents = useFilter({
+    items: events,
+    searchKeys: ['title', 'labels'],
+  })
   const localizer = momentLocalizer(moment)
 
   const moveEvent = useCallback(
@@ -67,6 +70,7 @@ export default function DnDCalendar() {
         end,
         title,
         allDay: false,
+        labels: [],
       }
       setEvents([...events, newEvent])
     }
@@ -91,6 +95,24 @@ export default function DnDCalendar() {
 
   return (
     <>
+      <p>
+        Working part:
+        <ol>
+          <li>Creating enents</li>
+          <li>Getting Holidays from API</li>
+          <li>Search by event title</li>
+        </ol>
+      </p>
+      <p>
+        TODO:
+        <ul>
+          <li>Styling</li>
+          <li>Create and edit labels for tasks (color, text).</li>
+          <li>Assign multiple labels to the task. Filter tasks by labels.</li>
+          <li>Import and export calendar to file (json or other formats).</li>
+          <li>Ability to download the calendar as an image.</li>
+        </ul>
+      </p>
       <SearchBar />
       <DragAndDropCalendar
         {...{ components, defaultDate, events: filteredEvents, localizer }}

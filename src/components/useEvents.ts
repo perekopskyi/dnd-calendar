@@ -19,6 +19,7 @@ const createCustomEvent = ({ allDay }: CreateCustomEvent): CalendarEvent => {
     start: eventStart,
     end: eventEnd,
     allDay,
+    labels: [],
   }
 }
 
@@ -40,15 +41,15 @@ export const useEvents = () => {
         countryCode: UA_CODE.countryCode,
       })
 
-      const holidaysCalendarEvents = holidays
-        .map(holiday => ({
-          id: Math.random(),
-          title: holiday.name,
-          start: new Date(holiday.date),
-          end: new Date(holiday.date),
-          allDay: true,
-          isHoliday: true,
-        }))
+      const holidaysCalendarEvents = holidays.map(holiday => ({
+        id: Math.random(),
+        title: holiday.name,
+        start: new Date(holiday.date),
+        end: new Date(holiday.date),
+        allDay: true,
+        isHoliday: true,
+        labels: [],
+      }))
 
       setEvents([...events, ...holidaysCalendarEvents])
       setIsLoading(false)
@@ -59,6 +60,6 @@ export const useEvents = () => {
   return {
     events,
     setEvents,
-    isLoading
+    isLoading,
   }
 }

@@ -1,9 +1,15 @@
+export type Label = {
+  text: string
+  color: string
+}
+
 export interface CalendarEvent {
   id: number
   title: string
   start: Date
   end: Date
   allDay: boolean
+  labels: Label[]
 }
 
 export interface Holiday extends CalendarEvent {
