@@ -106,7 +106,8 @@ export default function DnDCalendar() {
       <p>
         TODO:
         <ul>
-          <li>Styling</li>
+          <li>Make creating events with better UX/UI</li>
+          <li>Add styles</li>
           <li>Create and edit labels for tasks (color, text).</li>
           <li>Assign multiple labels to the task. Filter tasks by labels.</li>
           <li>Import and export calendar to file (json or other formats).</li>
