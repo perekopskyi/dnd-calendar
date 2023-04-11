@@ -30,8 +30,10 @@ const initEvents: CalendarEvent[] = [
 
 export const useEvents = () => {
   const [events, setEvents] = useState<(Holiday | CalendarEvent)[]>(initEvents)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
+    setIsLoading(true)
     async function fetchData() {
       const holidays = await fetchPublicHolidays({
         year: 2023,
@@ -49,6 +51,7 @@ export const useEvents = () => {
         }))
 
       setEvents([...events, ...holidaysCalendarEvents])
+      setIsLoading(false)
     }
     fetchData()
   }, [])
@@ -56,5 +59,6 @@ export const useEvents = () => {
   return {
     events,
     setEvents,
+    isLoading
   }
 }

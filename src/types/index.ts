@@ -11,7 +11,7 @@ export interface Holiday extends CalendarEvent {
 }
 
 export interface NewCalendarEvent {
-  event: CalendarEvent | Holiday
+  event: Holiday
   start?: Date
   end?: Date
   isAllDay?: boolean

@@ -9,11 +9,14 @@ import { useEvents } from './useEvents'
 import { CalendarEvent, NewCalendarEvent } from '../types'
 import { DayContainer } from './styledComponents'
 import { Event } from './Event'
+import { SearchBar } from './Search/SearchBar'
+import { useFilter } from './Search/useFilter'
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 export default function DnDCalendar() {
-  const { events, setEvents } = useEvents()
+  const { events, setEvents, isLoading } = useEvents()
+  const filteredEvents = useFilter({ items: events, searchKeys: ['title'] })
   const localizer = momentLocalizer(moment)
 
   const moveEvent = useCallback(
@@ -22,7 +25,9 @@ export default function DnDCalendar() {
       start,
       end,
       isAllDay: droppedOnAllDaySlot = false,
-    }: NewCalendarEvent) => {
+    }: NewCalendarEvent): void => {
+      if (event.isHoliday) return
+
       const { allDay } = event
       if (!allDay && droppedOnAllDaySlot) {
         event.allDay = true
@@ -80,19 +85,26 @@ export default function DnDCalendar() {
     []
   )
 
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
   return (
-    <DragAndDropCalendar
-      {...{ components, defaultDate, events, localizer }}
-      defaultView={Views.MONTH}
-      onEventDrop={moveEvent}
-      onEventResize={resizeEvent}
-      showMultiDayTimes={true}
-      step={15}
-      popup
-      resizable
-      selectable
-      onSelectSlot={handleSelectSlot}
-      views={['month', 'week', 'day']}
-    />
+    <>
+      <SearchBar />
+      <DragAndDropCalendar
+        {...{ components, defaultDate, events: filteredEvents, localizer }}
+        defaultView={Views.MONTH}
+        onEventDrop={moveEvent}
+        onEventResize={resizeEvent}
+        showMultiDayTimes={true}
+        step={15}
+        popup
+        resizable
+        selectable
+        onSelectSlot={handleSelectSlot}
+        views={['month', 'week', 'day']}
+      />
+    </>
   )
 }
