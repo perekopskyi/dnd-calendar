@@ -44,7 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@types/dom-to-image": "^2.6.4",
     "@types/react-big-calendar": "^1.6.3",
+    "dom-to-image": "^2.6.0",
     "moment": "^2.29.4",
     "react-big-calendar": "^1.6.9"
   }

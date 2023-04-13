@@ -2,16 +2,15 @@ import styled from '@emotion/styled'
 import DnDResource from './components/DndCalendar'
 import { SearchProvider } from './components/Search/Context'
 
-const CalendarContainer = styled.div`
-  margin: 2rem;
-  height: 800px;
+const AppContainer = styled.div`
+  margin: 1rem;
 `
 
 const App = () => (
   <SearchProvider>
-    <CalendarContainer>
+    <AppContainer>
       <DnDResource />
-    </CalendarContainer>
+    </AppContainer>
   </SearchProvider>
 )
 

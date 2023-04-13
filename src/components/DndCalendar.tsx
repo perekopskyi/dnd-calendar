@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react'
+import { useMemo, useCallback, useRef } from 'react'
 import { Calendar, SlotInfo, Views, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
@@ -7,7 +7,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { useEvents } from './useEvents'
 import { CalendarEvent, NewCalendarEvent } from '../types'
-import { DayContainer } from './styledComponents'
+import { CalendarContainer, DayContainer } from './styledComponents'
+import { DownloadButton } from './DownloadButton'
 import { Event } from './Event'
 import { SearchBar } from './Search/SearchBar'
 import { useFilter } from './Search/useFilter'
@@ -20,6 +21,8 @@ export default function DnDCalendar() {
     items: events,
     searchKeys: ['title', 'labels'],
   })
+  const calendarRef = useRef(null)
+
   const localizer = momentLocalizer(moment)
 
   const moveEvent = useCallback(
@@ -101,6 +104,7 @@ export default function DnDCalendar() {
           <li>Creating enents</li>
           <li>Getting Holidays from API</li>
           <li>Search by event title</li>
+          <li>Ability to download the calendar as an image.</li>
         </ol>
       </p>
       <p>
@@ -111,23 +115,25 @@ export default function DnDCalendar() {
           <li>Create and edit labels for tasks (color, text).</li>
           <li>Assign multiple labels to the task. Filter tasks by labels.</li>
           <li>Import and export calendar to file (json or other formats).</li>
-          <li>Ability to download the calendar as an image.</li>
         </ul>
       </p>
+      <DownloadButton componentRef={calendarRef} />
       <SearchBar />
-      <DragAndDropCalendar
-        {...{ components, defaultDate, events: filteredEvents, localizer }}
-        defaultView={Views.MONTH}
-        onEventDrop={moveEvent}
-        onEventResize={resizeEvent}
-        showMultiDayTimes={true}
-        step={15}
-        popup
-        resizable
-        selectable
-        onSelectSlot={handleSelectSlot}
-        views={['month', 'week', 'day']}
-      />
+      <CalendarContainer ref={calendarRef}>
+        <DragAndDropCalendar
+          {...{ components, defaultDate, events: filteredEvents, localizer }}
+          defaultView={Views.MONTH}
+          onEventDrop={moveEvent}
+          onEventResize={resizeEvent}
+          showMultiDayTimes={true}
+          step={15}
+          popup
+          resizable
+          selectable
+          onSelectSlot={handleSelectSlot}
+          views={['month', 'week', 'day']}
+        />
+      </CalendarContainer>
     </>
   )
 }

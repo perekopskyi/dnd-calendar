@@ -13,3 +13,8 @@ export const DayContainer = styled.div<{ isHoliday: boolean }>`
   border: 2px solid #fff;
   background-color: ${({ isHoliday }) => (isHoliday ? '#f8f8f8' : '#ccc')};
 `
+
+export const CalendarContainer = styled.div`
+  padding: 1rem;
+  height: 800px;
+`
