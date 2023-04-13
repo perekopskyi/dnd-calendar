@@ -1,17 +1,23 @@
-import styled from '@emotion/styled'
-import DnDResource from './components/DndCalendar'
-import { SearchProvider } from './components/Search/Context'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Labels } from './modules/Labels'
+import { Home } from './modules/Home'
 
-const AppContainer = styled.div`
-  margin: 1rem;
-`
+export const ROUTES = {
+  MAIN: '/',
+  LABELS: '/labels'
+}
 
-const App = () => (
-  <SearchProvider>
-    <AppContainer>
-      <DnDResource />
-    </AppContainer>
-  </SearchProvider>
-)
+const router = createBrowserRouter([
+  {
+    path: ROUTES.MAIN,
+    element: <Home />,
+  },
+  {
+    path: ROUTES.LABELS,
+    element: <Labels />,
+  },
+])
+
+const App = () => <RouterProvider router={router} />
 
 export default App

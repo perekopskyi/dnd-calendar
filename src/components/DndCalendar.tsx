@@ -7,15 +7,17 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { useEvents } from './useEvents'
 import { CalendarEvent, NewCalendarEvent } from '../types'
+import { ROUTES } from '../App'
 import { CalendarContainer, DayContainer } from './styledComponents'
 import { DownloadButton } from './DownloadButton'
 import { Event } from './Event'
 import { SearchBar } from './Search/SearchBar'
 import { useFilter } from './Search/useFilter'
+import { Button } from './common/Button'
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-export default function DnDCalendar() {
+export const DnDCalendar = () => {
   const { events, setEvents, isLoading } = useEvents()
   const filteredEvents = useFilter({
     items: events,
@@ -117,7 +119,10 @@ export default function DnDCalendar() {
           <li>Import and export calendar to file (json or other formats).</li>
         </ul>
       </p>
-      <DownloadButton componentRef={calendarRef} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DownloadButton componentRef={calendarRef} />
+        <Button to={ROUTES.LABELS}>Manage labels</Button>
+      </div>
       <SearchBar />
       <CalendarContainer ref={calendarRef}>
         <DragAndDropCalendar
