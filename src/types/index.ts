@@ -1,6 +1,11 @@
+import { ReactNode } from 'react'
+
 export type Label = {
   text: string
   color: string
+}
+export interface LabelWithId extends Label {
+  id: number
 }
 
 export interface CalendarEvent {
@@ -26,4 +31,8 @@ export interface NewCalendarEvent {
 export interface EventComponentProps {
   event: CalendarEvent
   title: string
+}
+
+export interface ChildrenInterface {
+  children: ReactNode
 }

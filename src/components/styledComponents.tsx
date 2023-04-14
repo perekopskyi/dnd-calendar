@@ -18,3 +18,7 @@ export const CalendarContainer = styled.div`
   padding: 1rem;
   height: 800px;
 `
+
+export const Main = styled.main`
+  margin: 1rem;
+`

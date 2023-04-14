@@ -1,15 +1,11 @@
-import styled from '@emotion/styled'
 import { SearchProvider } from '../../components/Search/Context'
 import { DnDCalendar } from '../../components/DndCalendar'
-
-const AppContainer = styled.div`
-  margin: 1rem;
-`
+import { Main } from '../../components/styledComponents'
 
 export const Home = () => (
   <SearchProvider>
-    <AppContainer>
+    <Main>
       <DnDCalendar />
-    </AppContainer>
+    </Main>
   </SearchProvider>
 )

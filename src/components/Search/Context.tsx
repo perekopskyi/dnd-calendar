@@ -1,12 +1,9 @@
-import { ReactNode, createContext, useState } from 'react'
+import { createContext, useState } from 'react'
+import { ChildrenInterface } from '../../types'
 
 interface SearchContextData {
   searchText: string
   handleSearchTextChange: (text: string) => void
-}
-
-interface SearchProviderProps {
-  children: ReactNode
 }
 
 // create the search context
@@ -16,7 +13,7 @@ export const SearchContext = createContext<SearchContextData>({
 })
 
 // create a provider component that will hold the search state and provide it to its children
-export const SearchProvider = ({ children }: SearchProviderProps) => {
+export const SearchProvider = ({ children }: ChildrenInterface) => {
   const [searchText, setSearchText] = useState('')
 
   const handleSearchTextChange = (text: string) => {

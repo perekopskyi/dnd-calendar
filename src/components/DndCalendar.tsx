@@ -94,10 +94,6 @@ export const DnDCalendar = () => {
     []
   )
 
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
-
   return (
     <>
       <p>
@@ -107,6 +103,9 @@ export const DnDCalendar = () => {
           <li>Getting Holidays from API</li>
           <li>Search by event title</li>
           <li>Ability to download the calendar as an image.</li>
+          <li>
+            Create labels for tasks (color, text). <span style={{color: 'tomato'}} >Save labels using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API" title="IndexedDB is a low-level API that allows you to store structured data in the user's browser">IndexedDB API.</a></span>
+          </li>
         </ol>
       </p>
       <p>
@@ -114,7 +113,7 @@ export const DnDCalendar = () => {
         <ul>
           <li>Make creating events with better UX/UI</li>
           <li>Add styles</li>
-          <li>Create and edit labels for tasks (color, text).</li>
+          <li>Edit labels for tasks (color, text).</li>
           <li>Assign multiple labels to the task. Filter tasks by labels.</li>
           <li>Import and export calendar to file (json or other formats).</li>
         </ul>
@@ -125,19 +124,23 @@ export const DnDCalendar = () => {
       </div>
       <SearchBar />
       <CalendarContainer ref={calendarRef}>
-        <DragAndDropCalendar
-          {...{ components, defaultDate, events: filteredEvents, localizer }}
-          defaultView={Views.MONTH}
-          onEventDrop={moveEvent}
-          onEventResize={resizeEvent}
-          showMultiDayTimes={true}
-          step={15}
-          popup
-          resizable
-          selectable
-          onSelectSlot={handleSelectSlot}
-          views={['month', 'week', 'day']}
-        />
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <DragAndDropCalendar
+            {...{ components, defaultDate, events: filteredEvents, localizer }}
+            defaultView={Views.MONTH}
+            onEventDrop={moveEvent}
+            onEventResize={resizeEvent}
+            showMultiDayTimes={true}
+            step={15}
+            popup
+            resizable
+            selectable
+            onSelectSlot={handleSelectSlot}
+            views={['month', 'week', 'day']}
+          />
+        )}
       </CalendarContainer>
     </>
   )
